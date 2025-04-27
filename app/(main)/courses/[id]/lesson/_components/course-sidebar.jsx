@@ -1,4 +1,5 @@
- 
+"use server"
+
 import { CourseProgress } from "@/components/course-progress";
 import {
   Accordion,

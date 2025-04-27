@@ -1,3 +1,5 @@
+"use client"
+
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
