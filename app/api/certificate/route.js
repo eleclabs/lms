@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
  
