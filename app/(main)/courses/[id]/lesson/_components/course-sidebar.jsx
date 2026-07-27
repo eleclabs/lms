@@ -41,9 +41,9 @@ export const CourseSidebar = async ({courseId}) => {
 
 
 
-  const updatedModules = await Promise.all(course?.modules.map(async(module) => {
+  const updatedModules = await Promise.all((course?.modules ?? []).map(async(module) => {
     const moduleId = module._id.toString();
-    const lessons = module?.lessonIds;
+    const lessons = module?.lessonIds ?? [];
 
   const updatedLessons = await Promise.all(lessons.map(async (lesson) => {
     const lessonId = lesson._id.toString();
@@ -61,10 +61,13 @@ export const CourseSidebar = async ({courseId}) => {
   const updatedallModules = sanitizeData(updatedModules)
 
 
-  // Sanitize fucntion for handle ObjectID and Buffer
+  // Sanitize function for handling ObjectId and Buffer values.
 function sanitizeData(data) {
-  return JSON.parse(
-    JSON.stringify(data, (key, value) => {
+  if (data == null) {
+    return data;
+  }
+
+  const serializedData = JSON.stringify(data, (key, value) => {
       if (value instanceof ObjectId) {
           return value.toString();
       }
@@ -72,8 +75,9 @@ function sanitizeData(data) {
         return value.toString("base64")
       }
       return value;
-    })
-  );
+    });
+
+  return serializedData === undefined ? undefined : JSON.parse(serializedData);
 }
 
   const quizSetall = course?.quizSet;

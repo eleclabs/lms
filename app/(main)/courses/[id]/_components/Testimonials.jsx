@@ -2,6 +2,7 @@ import { Carousel,CarouselContent,CarouselItem,CarouselNext,CarouselPrevious } f
 import Image from "next/image";
 import { SectionTitle } from "@/components/section-title";
 import StarRating from "@/components/start-rating";
+import { getProfileImageUrl } from "@/lib/profile-image";
  
 const Testimonials = ({testimonials}) => {
    // console.log(testimonials);
@@ -31,7 +32,7 @@ const Testimonials = ({testimonials}) => {
                       <Image
                         alt={`Profile ${testimonial?.user?.
                           firstName} `}
-                        src={testimonial?.user?.profilePicture}
+                        src={getProfileImageUrl(testimonial?.user?.profilePicture)}
                         width="56"
                         height="56"
                         className="size-14 rounded-full object-cover"

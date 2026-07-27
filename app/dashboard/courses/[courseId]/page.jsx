@@ -20,6 +20,7 @@ import { getCategories } from "@/queries/categories";
 import { replaceMongoIdInArray } from "@/lib/convertData";
 import { ObjectId } from "mongoose";
 import { getAllQuizSets } from "@/queries/quizzes";
+import { getCourseImageUrl } from "@/lib/course-image";
  
 const EditCourse = async ({ params: {courseId} }) => {
  
@@ -102,7 +103,7 @@ function sanitizeData(data) {
             />
             <DescriptionForm initialData={{description: course?.description }} courseId={courseId} />
 
-            <ImageForm initialData={{imageUrl: `/assets/images/courses/${course?.thumbnail}`}} courseId={courseId} />
+            <ImageForm initialData={{imageUrl: getCourseImageUrl(course?.thumbnail)}} courseId={courseId} />
            
             <CategoryForm initialData={{value: course?.category?.title }} courseId={courseId} options={mappedCategories} />
 

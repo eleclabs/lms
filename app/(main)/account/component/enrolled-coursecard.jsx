@@ -6,6 +6,7 @@ import { getCategoryDetails } from '@/queries/categories';
 import { getReport } from '@/queries/reports';
 import { CourseProgress } from '@/components/course-progress';
 import { getCourseDetails } from '@/queries/courses';
+import { getCourseImageUrl } from '@/lib/course-image';
 
 const EnrolledCourseCard = async ({enrollment}) => {
    // console.log(enrollment);
@@ -52,7 +53,7 @@ const EnrolledCourseCard = async ({enrollment}) => {
     >
         <div className="relative w-full aspect-video rounded-md overflow-hidden">
             <Image
-                src={`/assets/images/courses/${enrollment?.course?.thumbnail}`}
+                src={getCourseImageUrl(enrollment?.course?.thumbnail)}
                 alt={enrollment?.course?.title}
                 className="object-cover"
                 fill

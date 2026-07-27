@@ -11,6 +11,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import MobileNav from './mobile-nav';
 import { useSession, signOut } from 'next-auth/react';
+import { getProfileImageUrl } from '@/lib/profile-image';
 
 const MainNav = ({ items, children }) => {
     const { data: session } = useSession();
@@ -32,6 +33,18 @@ const MainNav = ({ items, children }) => {
             }
         }
         fetchMe();
+
+        const updateProfileImage = (event) => {
+            setLoggedInUser((currentUser) => currentUser
+                ? { ...currentUser, profilePicture: event.detail.imageUrl }
+                : currentUser
+            );
+        };
+        window.addEventListener("profile-image-updated", updateProfileImage);
+
+        return () => {
+            window.removeEventListener("profile-image-updated", updateProfileImage);
+        };
     }, [session]);
 
 
@@ -95,7 +108,7 @@ const MainNav = ({ items, children }) => {
                         <DropdownMenuTrigger asChild>
                             <div className='cursor-pointer'>
                                 <Avatar>
-                                    <AvatarImage src={loggedInUser?.profilePicture} alt="@ariyan" />
+                                    <AvatarImage src={getProfileImageUrl(loggedInUser?.profilePicture)} alt={loggedInUser?.firstName || "Profile"} />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                             </div>

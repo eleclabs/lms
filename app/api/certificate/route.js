@@ -8,7 +8,8 @@ import { getLoggedInUser } from "@/lib/loggedin-user";
 import { getReport } from "@/queries/reports";
 
 import { formatMyDate } from "@/lib/date";
- 
+
+/*
 // Fetch custom fonts
 const kalamFontUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/fonts/kalam/Kalam-Regular.ttf`;
 const kalamFontBytes = await fetch(kalamFontUrl).then((res) =>
@@ -30,6 +31,7 @@ console.log({
   montserratItalicFontUrl,
   montserratItalicFontBytes,
 });
+
 const montserratFontUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/fonts/montserrat/Montserrat-Medium.ttf`;
 const montserratFontBytes = await fetch(montserratFontUrl).then((res) =>
   res.arrayBuffer()
@@ -39,8 +41,12 @@ console.log({
   montserratFontBytes,
 });
 
+*/
+
 export async function GET(request) {
   try {
+
+
     /* -----------------
      *
      * Configuratios

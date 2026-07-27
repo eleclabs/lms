@@ -7,6 +7,7 @@ import EnrollCourse from '@/components/enroll-course';
 import { auth } from '@/auth';
 import { getUserByEmail } from '@/queries/users';
 import { hasEnrollmentForCourse } from '@/queries/enrollments';
+import { getCourseImageUrl } from '@/lib/course-image';
  
 const CourseDetailsIntro = async ({course}) => {
 
@@ -73,7 +74,7 @@ const CourseDetailsIntro = async ({course}) => {
                       className="w-full rounded-lg"
                       width={768}
                       height={463}
-                      src={`/assets/images/courses/${course?.thumbnail}`}
+                      src={getCourseImageUrl(course?.thumbnail)}
                       alt=""
                     />
                   </div>

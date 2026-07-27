@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { ArrowRightIcon } from "lucide-react";
 import { BookOpen } from "lucide-react";
 import EnrollCourse from '@/components/enroll-course';
+import { getCourseImageUrl } from '@/lib/course-image';
  
 const CourseCard = ({course}) => {
     return (
@@ -16,7 +17,7 @@ const CourseCard = ({course}) => {
         
           <div className="relative w-full aspect-video rounded-md overflow-hidden">
             <Image
-              src={`/assets/images/courses/${course?.thumbnail}`}
+              src={getCourseImageUrl(course?.thumbnail)}
               alt={"course"}
               className="object-cover"
               fill

@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
+import { getProfileImageUrl } from "@/lib/profile-image";
 
 export const Navbar = () => {
 
@@ -29,6 +30,18 @@ export const Navbar = () => {
           }
       }
       fetchMe();
+
+      const updateProfileImage = (event) => {
+          setLoggedInUser((currentUser) => currentUser
+              ? { ...currentUser, profilePicture: event.detail.imageUrl }
+              : currentUser
+          );
+      };
+      window.addEventListener("profile-image-updated", updateProfileImage);
+
+      return () => {
+          window.removeEventListener("profile-image-updated", updateProfileImage);
+      };
   },[]);
 
 
@@ -42,7 +55,7 @@ export const Navbar = () => {
             <div className="cursor-pointer">
               <Avatar>
                 <AvatarImage
-                  src={loggedInUser?.profilePicture}
+                  src={getProfileImageUrl(loggedInUser?.profilePicture)}
                   alt="@shadcn"
                 />
                 <AvatarFallback>CN</AvatarFallback>

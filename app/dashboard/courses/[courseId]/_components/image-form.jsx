@@ -21,6 +21,7 @@ const formSchema = z.object({
 export const ImageForm = ({ initialData, courseId }) => {
 
   const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(initialData.imageUrl);
 
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
@@ -31,20 +32,21 @@ export const ImageForm = ({ initialData, courseId }) => {
         try {
           const formData = new FormData();
           formData.append("files", file[0]);
-          formData.append("destination", "./public/assets/images/courses");
           formData.append("courseId",courseId);
           const response = await fetch("/api/upload", {
             method: "POST",
             body: formData
           });
-          const result = await response.text();
-          console.log(result);
-          if (response.status === 200) {
-            initialData.imageUrl = `/assets/images/courses/${file[0].path}`;
-            toast.success(result);
-            toggleEdit();
-            router.refresh(); 
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || "Image upload failed");
           }
+
+          setImageUrl(result.imageUrl);
+          toast.success(result.message);
+          setIsEditing(false);
+          router.refresh();
 
         } catch (e) {
            toast.error(e.message);
@@ -53,7 +55,7 @@ export const ImageForm = ({ initialData, courseId }) => {
       uploadFile();
     }
 
-  },[file]);
+  },[file, courseId, router]);
 
 
 
@@ -77,13 +79,13 @@ export const ImageForm = ({ initialData, courseId }) => {
         Course Image
         <Button variant="ghost" onClick={toggleEdit}>
           {isEditing && <>Cancel</>}
-          {!isEditing && !initialData.imageUrl && (
+          {!isEditing && !imageUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
               Add an image
             </>
           )}
-          {!isEditing && initialData.imageUrl && (
+          {!isEditing && imageUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
               Edit image
@@ -92,7 +94,7 @@ export const ImageForm = ({ initialData, courseId }) => {
         </Button>
       </div>
       {!isEditing &&
-        (!initialData.imageUrl ? (
+        (!imageUrl ? (
           <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
             <ImageIcon className="h-10 w-10 text-slate-500" />
           </div>
@@ -102,7 +104,7 @@ export const ImageForm = ({ initialData, courseId }) => {
               alt="Upload"
               fill
               className="object-cover rounded-md"
-              src={initialData.imageUrl}
+              src={imageUrl}
             />
           </div>
         ))}

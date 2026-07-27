@@ -2,6 +2,8 @@ import { SectionTitle } from "@/components/section-title";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
 import { getCourseDetailsByInstructor } from "@/queries/courses";
+import { getCourseImageUrl } from "@/lib/course-image";
+import { getProfileImageUrl } from "@/lib/profile-image";
 import {
   ArrowRight,
   ArrowRightIcon,
@@ -29,7 +31,7 @@ const InstructorProfile = async ({ params: {id} }) => {
             <div className="mb-6">
               <div className="w-36 h-36 rounded-full  mb-5 mx-auto overflow-hidden">
                 <Image
-                  src={courseDetailsByInstructor?.insImage}
+                  src={getProfileImageUrl(courseDetailsByInstructor?.insImage)}
                   alt={courseDetailsByInstructor?.fullInsName}
                   width={300}
                   height={300}
@@ -85,7 +87,7 @@ I am working online for the last 9 years and have created several successful web
                     <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
                       <div className="relative w-full aspect-video rounded-md overflow-hidden">
                         <Image
-                          src={`/assets/images/courses/${course?.thumbnail}`}
+                          src={getCourseImageUrl(course?.thumbnail)}
                           alt={course.title}
                           className="object-cover"
                           fill

@@ -5,6 +5,7 @@ import CourseCurriculam from "./CourseCurriculam";
 import CourseInstructor from "./CourseInstructor";
 import Image from "next/image";
 import { formatMyDate } from "@/lib/date";
+import { getProfileImageUrl } from "@/lib/profile-image";
 
 const CourseDetails = ({course}) => {
 
@@ -29,7 +30,7 @@ const CourseDetails = ({course}) => {
             <div className="flex items-center gap-2">
               <Image
                 className="w-[40px] h-[40px] rounded-full"
-                src={course?.instructor?.profilePicture}
+                src={getProfileImageUrl(course?.instructor?.profilePicture)}
                 alt={course?.instructor?.firstName}
                 width={20}
                 height={20}

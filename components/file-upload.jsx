@@ -83,7 +83,7 @@ export const UploadDropzone = (props) => {
             Click to upload
           </span>{" "}
           or drag and drop <br />
-          Maximum file size 50 MB.
+          Maximum file size 10 MB.
         </h4>
         {/* <p>Only *.jpeg and *.png images will be accepted</p> */}
         {isUploading ? (

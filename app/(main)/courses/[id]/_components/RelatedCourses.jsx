@@ -6,6 +6,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { SectionTitle } from "@/components/section-title";
+import { getCourseImageUrl } from "@/lib/course-image";
  
 
 const RelatedCourses = ({relatedCourses}) => {
@@ -31,7 +32,7 @@ const RelatedCourses = ({relatedCourses}) => {
                     <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
                       <div className="relative w-full aspect-video rounded-md overflow-hidden">
                         <Image
-                          src={`/assets/images/courses/${course.thumbnail}`}
+                          src={getCourseImageUrl(course.thumbnail)}
                           alt={course.title}
                           className="object-cover"
                           fill

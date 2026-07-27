@@ -6,6 +6,7 @@ import { getUserByEmail } from "@/queries/users";
 import { redirect } from "next/navigation";
 formatPrice;
 
+
 const DashboardPage = async () => {
 
   const session = await auth();
