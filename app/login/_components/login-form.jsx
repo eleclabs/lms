@@ -19,24 +19,29 @@ import { toast } from "sonner";
 export function LoginForm() {
 
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
   async function onSubmit(event) {
     event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
 
     try {
       const formData = new FormData(event.currentTarget);
       const response = await ceredntialLogin(formData);
 
-      if (!!response.error) {
-        console.log(response.error)
+      if (!response.success) {
         setError(response.error);
       } else {
         toast.success("Login Successfuly!");
         router.push("/courses")
+        router.refresh();
       }
     } catch (e) {
-      setError(e.message);
+      setError("Unable to sign in. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -76,8 +81,13 @@ export function LoginForm() {
               </div>
               <Input id="password" name="password" type="password" required />
             </div>
-            <Button type="submit" className="w-full">
-              Login
+            {error && (
+              <p role="alert" className="text-sm text-red-600">
+                {error}
+              </p>
+            )}
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Signing in..." : "Login"}
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">

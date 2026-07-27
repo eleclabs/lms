@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Editor } from "@/components/editor";
 import { toast } from "sonner";
 import {
   Popover,
@@ -239,10 +239,11 @@ const AddLive = () => {
                   <FormItem>
                     <FormLabel>Live Description</FormLabel>
                     <FormControl>
-                      <Textarea
+                      <Editor
                         placeholder="Live overview"
-                        className="resize-none"
-                        {...field}
+                        disabled={isSubmitting}
+                        value={field.value}
+                        onChange={field.onChange}
                       />
                     </FormControl>
                     <FormDescription>

@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Editor } from "@/components/editor";
 import { toast } from "sonner";
 import { createCourse } from "@/app/actions/course";
 
@@ -95,10 +95,11 @@ const AddCourse = () => {
                 <FormItem>
                   <FormLabel>Course Description</FormLabel>
                   <FormControl>
-                    <Textarea
+                    <Editor
                       placeholder="Course overview"
-                      className="resize-none"
-                      {...field}
+                      disabled={isSubmitting}
+                      value={field.value}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                   <FormDescription>

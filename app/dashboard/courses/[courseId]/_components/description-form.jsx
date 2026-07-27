@@ -12,7 +12,8 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import { Editor } from "@/components/editor";
+import { Preview } from "@/components/preview";
 import { cn } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -67,14 +68,16 @@ export const DescriptionForm = ({ initialData, courseId }) => {
         </Button>
       </div>
       {!isEditing && (
-        <p
+        <div
           className={cn(
             "text-sm mt-2",
             !initialData.description && "text-slate-500 italic"
           )}
         >
-          {initialData.description || "No description"}
-        </p>
+          {initialData.description
+            ? <Preview value={initialData.description} />
+            : "No description"}
+        </div>
       )}
       {isEditing && (
         <Form {...form}>
@@ -88,10 +91,11 @@ export const DescriptionForm = ({ initialData, courseId }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
+                    <Editor
                       disabled={isSubmitting}
                       placeholder="e.g. 'This course is about...'"
-                      {...field}
+                      value={field.value}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                   <FormMessage />

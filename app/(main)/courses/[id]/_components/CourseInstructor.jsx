@@ -7,6 +7,7 @@ import Image from "next/image";
 import { getCourseDetailsByInstructor } from '@/queries/courses';
 import Link from 'next/link';
 import { getProfileImageUrl } from '@/lib/profile-image';
+import { Preview } from '@/components/preview';
 
 const CourseInstructor = async ({course}) => {
   const instructor = course?.instructor;
@@ -69,9 +70,7 @@ const CourseInstructor = async ({course}) => {
             </div>
           </div>
         </div>
-        <p className="text-gray-600">
-        {instructor?.bio}
-        </p>
+        <Preview value={instructor?.bio} className="text-gray-600" />
       </div>
     );
 };

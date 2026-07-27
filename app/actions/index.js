@@ -1,15 +1,30 @@
 'use server'
-import { signIn } from "@/auth" 
+import { signIn } from "@/auth"
+import { AuthError } from "next-auth";
 
 export async function ceredntialLogin(formData){
     try {
-        const response = await signIn("credentials", {
+        await signIn("credentials", {
             email: formData.get("email"),
             password: formData.get("password"),
-            redirect: false   //false
+            redirect: false
         })
-        return response;
+        return { success: true };
     } catch (error) {
-        throw new Error(error);
+        if (error instanceof AuthError) {
+            if (error.type === "CredentialsSignin") {
+                return {
+                    success: false,
+                    error: "Invalid email or password.",
+                };
+            }
+
+            return {
+                success: false,
+                error: "Unable to sign in. Please try again.",
+            };
+        }
+
+        throw error;
     }
 }

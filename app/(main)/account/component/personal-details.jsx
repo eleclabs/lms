@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Editor } from "@/components/editor";
 import Image from "next/image";
 import Link from "next/link";
 import { updateUserInfo } from '@/app/actions/account';
@@ -102,12 +102,10 @@ const PersonalDetails = ({userInfo}) => {
         <div className="grid grid-cols-1">
             <div className="mt-5">
                 <Label className="mb-2 block">Description :</Label>
-                <Textarea
-                    id="bio"
-                    name="bio"
+                <Editor
                     value={infoState?.bio}
-                    onChange={handleChange}
-                    placeholder="Message :"
+                    onChange={(bio) => setInfoState({ ...infoState, bio })}
+                    placeholder="Tell people about yourself..."
                 />
             </div>
         </div>

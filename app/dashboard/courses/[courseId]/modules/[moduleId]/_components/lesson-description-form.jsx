@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { Textarea } from "@/components/ui/textarea";
+import { Editor } from "@/components/editor";
+import { Preview } from "@/components/preview";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -45,7 +46,7 @@ export const LessonDescriptionForm = ({ initialData, courseId, lessonId }) => {
   const onSubmit = async (values) => {
     try {
       await updateLesson(lessonId,values);
-      setDescription(values.title);
+      setDescription(values.description);
       toast.success("Lesson updated");
       toggleEdit();
       router.refresh();
@@ -70,7 +71,7 @@ export const LessonDescriptionForm = ({ initialData, courseId, lessonId }) => {
         </Button>
       </div>
   {!isEditing && (
-          <p className="text-sm mt-2">{description}</p>
+          <Preview value={description} className="mt-2" />
         )}
         {isEditing && (
           <Form {...form}>
@@ -84,10 +85,12 @@ export const LessonDescriptionForm = ({ initialData, courseId, lessonId }) => {
                 render={({ field }) => (
                   <FormItem>
                    <FormControl>
-        <Textarea disabled={isSubmitting} 
-        placeholder="e.g. 'This course is about...'"
-                {...field}
-              />
+        <Editor
+          disabled={isSubmitting}
+          placeholder="e.g. 'This lesson is about...'"
+          value={field.value}
+          onChange={field.onChange}
+        />
             </FormControl>
                     <FormMessage />
                   </FormItem>
