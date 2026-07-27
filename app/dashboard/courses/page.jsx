@@ -19,8 +19,11 @@ const CoursesPage = async () => {
 };
 
 function sanitizeData(data) {
-  return JSON.parse(
-    JSON.stringify(data, (key, value) => {
+  if (data == null) {
+    return [];
+  }
+
+  const serializedData = JSON.stringify(data, (key, value) => {
       if (value instanceof ObjectId) {
           return value.toString();
       }
@@ -28,8 +31,9 @@ function sanitizeData(data) {
         return value.toString("base64")
       }
       return value;
-    })
-  );
+    });
+
+  return serializedData === undefined ? [] : JSON.parse(serializedData);
 }
 
 export default CoursesPage;

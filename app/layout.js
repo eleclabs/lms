@@ -5,6 +5,10 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner";
 import { dbConnect } from "@/service/mongo";
 
+// The application reads MongoDB and session data at request time.
+// Prevent Next.js from querying external services during static prerendering.
+export const dynamic = "force-dynamic";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",

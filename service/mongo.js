@@ -5,6 +5,7 @@ export async function dbConnect(){
         const conn = await mongoose.connect(String(process.env.MONGODB_CONNECTION_STRING));
         return conn;
     } catch (error) {
-        console.log(error)
+        console.error("MongoDB connection failed:", error);
+        throw error;
     }
 }
